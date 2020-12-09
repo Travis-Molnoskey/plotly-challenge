@@ -2,7 +2,7 @@
 
 function optionChanged() {
 
-    d3.json("../samples.json").then(function(data){
+    d3.json("samples.json").then(function(data){
 
         var dropMenu = d3.select("#selDataset");
 
