@@ -2,28 +2,30 @@
 
 function optionChanged() {
 
-d3.json("../samples.json").then(function(data){
+    d3.json("../samples.json").then(function(data){
 
-var dropMenu = d3.select("#selDataset");
+        var dropMenu = d3.select("#selDataset");
 
-dropMenu.selectAll("option")
-    .data(data.names)
-    .enter()
-    .append("option")
-    .attr("value",d=>d)
-    .text(d=>d);
+        dropMenu.selectAll("option")
+            .data(data.names)
+            .enter()
+            .append("option")
+            .attr("value",d=>d)
+            .text(d=>d);
 
-updatePlotly(data);
+        updatePlotly(data);
 
 
-});
+    });
 };
 
 
     function updatePlotly(data){
 
         var dropMenu = d3.select("#selDataset");
+
         let idChoice = dropMenu.property("value");
+
         otu_ids=[]
         otu_labels=[]
         sample_values=[]
@@ -80,13 +82,13 @@ updatePlotly(data);
             metadata = d
             };
         });
-        sampleMetadata = d3.select("#sample-metadata");
 
-        sampleMetadata.selectAll("ul")
-            .data(Object.entries(metadata))
-            .enter()
+        sampleMetadata = d3.select("#sample-metadata").selectAll("ul").data(Object.entries(metadata));
+
+        sampleMetadata.enter()
             .append("ul")
-            .text(d=>`${d[0]}: ${d[1]}`)
+            .merge(sampleMetadata)
+            .text(d=>`${d[0]}: ${d[1]}`);
 
     };
 
