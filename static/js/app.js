@@ -74,6 +74,12 @@ function optionChanged() {
 
         Plotly.newPlot("bubble", bubbleData);
 
+        
+
+
+
+
+
         //fill metadata
         let metadata = {}
          
@@ -89,6 +95,38 @@ function optionChanged() {
             .append("ul")
             .merge(sampleMetadata)
             .text(d=>`${d[0]}: ${d[1]}`);
+        console.log(metadata)
+        var guageData = [
+            {
+                domain: { x: [0, 9] },
+                value: metadata.wfreq,
+                title: { text: `Belly Button Washing Frequency (Per Week)` },
+                type: "indicator",
+                mode: "gauge+number",
+                gauge:{
+                    steps:[
+                        {range:[0,1], color:"C0DE90", line:{width:3}},
+                        {range:[1,2], color:"B8DE80", line:{width:3}},
+                        {range:[2,3], color:"B0DE70", line:{width:3}},
+                        {range:[3,4], color:"A8DE60", line:{width:3}},
+                        {range:[4,5], color:"A0DE50", line:{width:3}},
+                        {range:[5,6], color:"98DE40", line:{width:3}},
+                        {range:[6,7], color:"90DE30", line:{width:3}},
+                        {range:[7,8], color:"88DE20", line:{width:3}},
+                        {range:[8,9], color:"80DE10", line:{width:3}}
+                    ],
+                    threshold: {
+                        line: { color: "red", width: 6 },
+                        value: metadata.wfreq
+                    },
+                    axis:{range:[0,9]}
+                }
+            }
+        ];
+        
+        var guageLayout = { width: 600, height: 500, margin: { t: 0, b: 0 } };
+
+        Plotly.newPlot('gauge', guageData, guageLayout);
 
     };
 
